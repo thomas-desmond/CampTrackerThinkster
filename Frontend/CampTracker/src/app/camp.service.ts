@@ -11,37 +11,25 @@ export class CampService {
 
   private headers: HttpHeaders;
   private baseUrl: string = 'https://localhost:44324/api/camps';
-  // public campData$: Observable<Camp[]>;
 
   constructor(private httpClient: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
   }
 
-  public get(): Observable<any[]> {
-    // this.campData$ = this.http.get(this.campApiEndpoint, {headers: this.headers})
-    return this.httpClient.get<any[]>(this.baseUrl, {headers: this.headers});
-    // .pipe(
-    //   retry(1),
-    //   catchError(this.handleError)
-    // );
+  public get(): Observable<Camp[]> {
+    return this.httpClient.get<Camp[]>(this.baseUrl, {headers: this.headers});
   }
 
-  public add(payload) {
-    console.log("in the add", payload);
-
-    return this.httpClient.post(this.baseUrl, payload, {headers: this.headers}).subscribe(res => console.log(res));    
-    // .pipe(
-    //   retry(1),
-    //   catchError(this.handleError)
-    // );;
+  public add(payload){
+    return this.httpClient.post<Camp[]>(this.baseUrl, payload, {headers: this.headers}).subscribe(res => console.log(res));    
   }
 
-  public remove(payload) {
-    return this.httpClient.delete(this.baseUrl + '/' + payload.id, {headers: this.headers});
+  public remove(payload): Observable<Camp[]> {
+    return this.httpClient.delete<Camp[]>(this.baseUrl + '/' + payload.id, {headers: this.headers});
   }
 
-  public update(payload) {
-    return this.httpClient.put(this.baseUrl + '/' + payload.id, payload, {headers: this.headers});
+  public update(payload): Observable<Camp[]> {
+    return this.httpClient.put<Camp[]>(this.baseUrl + '/' + payload.id, payload, {headers: this.headers});
   }
 
   handleError(error) {
