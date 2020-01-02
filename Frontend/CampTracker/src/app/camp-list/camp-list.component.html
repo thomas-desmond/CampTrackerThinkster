@@ -1,1 +1,5 @@
-<p>camp-list works!</p>
+<p>camp-list works! Here are all the campsites I have been to.</p>
+
+<li *ngFor="let camp of campingData$ | async" >
+    -- name: {{camp.name}}
+</li>

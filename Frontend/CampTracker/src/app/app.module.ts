@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { CampListComponent } from './camp-list/camp-list.component';
 import { AddUpdateCampComponent } from './add-update-camp/add-update-camp.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CampService } from './camp.service';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -16,9 +20,11 @@ import { AddUpdateCampComponent } from './add-update-camp/add-update-camp.compon
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [CampService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
