@@ -28,7 +28,8 @@ export class CampService {
 
   public add(payload) {
     console.log("in the add", payload);
-    return this.httpClient.post(this.baseUrl, payload, {headers: this.headers}).subscribe((response) => console.log(response));    
+
+    return this.httpClient.post(this.baseUrl, payload, {headers: this.headers}).subscribe(res => console.log(res));    
     // .pipe(
     //   retry(1),
     //   catchError(this.handleError)

@@ -1,6 +1,6 @@
 export class Camp {
     id: number;
-    date: Date;
+    date: string;
     name: string;
     campsiteNumber: number;
     notes: string;

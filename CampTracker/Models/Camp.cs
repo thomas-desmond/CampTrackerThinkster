@@ -8,7 +8,7 @@ namespace CampTracker.Models
     public class Camp
     {
         public int Id { get; set; }
-        public DateTimeOffset Date { get; set; }
+        public DateTime Date { get; set; }
         public string Name { get; set; }
         public int CampsiteNumber { get; set; }
         public string Notes { get; set; }
