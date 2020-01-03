@@ -28,8 +28,7 @@ export class AddUpdateCampComponent implements OnInit {
 
   public addOrUpdateCampingRecord = function(event) {
     this.campService.add(this.campingInfo);
-    // this.campCreated.emit(this.campingInfo);
-    // this.clearCampInfo();
-    // this.clearJoggingInfo();
+    // this.campingInfo.id = 5;
+    // this.campService.remove(this.campingInfo);
   };
 }

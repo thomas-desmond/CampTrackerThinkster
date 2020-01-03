@@ -11,7 +11,7 @@ export class CampListComponent implements OnInit {
   private campingData$: Observable<any[]>;
 
   constructor(private campService: CampService) {     
-    this.campingData$ = this.campService.get()
+    this.campingData$ = this.campService.campDataBehaviorSubject.asObservable();
   }
 
   ngOnInit() {

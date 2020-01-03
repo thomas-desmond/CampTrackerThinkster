@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CampService } from '../camp.service';
+import { Camp } from '../shared/models/camp.model';
 
 @Component({
   selector: 'app-home-page',
@@ -13,9 +14,4 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit() {    
   }
-
-  public createOrUpdateCamp = function(camp: any) {
-    this.campService.add(camp);
-  }
-
 }

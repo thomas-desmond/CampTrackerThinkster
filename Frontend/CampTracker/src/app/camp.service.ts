@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { of, Observable, throwError } from 'rxjs';
+import { of, Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Camp } from './shared/models/camp.model';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -12,20 +12,30 @@ export class CampService {
   private headers: HttpHeaders;
   private baseUrl: string = 'https://localhost:44324/api/camps';
 
+  public campDataBehaviorSubject = new BehaviorSubject<Camp[]>([]);
+
   constructor(private httpClient: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
+    this.get();
   }
 
-  public get(): Observable<Camp[]> {
-    return this.httpClient.get<Camp[]>(this.baseUrl, {headers: this.headers});
+  public get() {
+    this.httpClient.get<Camp[]>(this.baseUrl, {headers: this.headers}).subscribe( (responseData) => {
+      this.campDataBehaviorSubject.next(responseData);      
+    });
   }
 
-  public add(payload){
-    return this.httpClient.post<Camp[]>(this.baseUrl, payload, {headers: this.headers}).subscribe(res => console.log(res));    
+  public add(payload) {
+    this.httpClient.post<Camp[]>(this.baseUrl, payload, {headers: this.headers}).subscribe((responseData) => {
+      this.campDataBehaviorSubject.next(this.campDataBehaviorSubject.getValue().concat(responseData)); 
+    })
   }
 
-  public remove(payload): Observable<Camp[]> {
-    return this.httpClient.delete<Camp[]>(this.baseUrl + '/' + payload.id, {headers: this.headers});
+  public remove(payload) {
+    this.httpClient.delete<Camp[]>(this.baseUrl + '/' + payload.id, {headers: this.headers}).subscribe( () => {
+      let newCampList = this.campDataBehaviorSubject.getValue().filter(camp => camp.id !== payload.id);
+      this.campDataBehaviorSubject.next(newCampList);
+    });
   }
 
   public update(payload): Observable<Camp[]> {
