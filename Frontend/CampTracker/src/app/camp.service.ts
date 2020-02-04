@@ -21,7 +21,8 @@ export class CampService {
 
   public get() {
     this.httpClient.get<Camp[]>(this.baseUrl, {headers: this.headers}).subscribe( (responseData) => {
-      this.campDataBehaviorSubject.next(responseData);      
+      this.campDataBehaviorSubject.next(responseData);
+      return this.campDataBehaviorSubject.asObservable();      
     });
   }
 
@@ -38,8 +39,17 @@ export class CampService {
     });
   }
 
-  public update(payload): Observable<Camp[]> {
-    return this.httpClient.put<Camp[]>(this.baseUrl + '/' + payload.id, payload, {headers: this.headers});
+  public update(payload){
+    return this.httpClient.put<Camp>(this.baseUrl + '/' + payload.id, payload, {headers: this.headers}).subscribe(response => {
+      let data = this.campDataBehaviorSubject.getValue();
+      const index = data.findIndex(camp => camp.id === payload.id);
+      data[index] = payload;
+
+      this.campDataBehaviorSubject.next(data);
+    },
+      (error) => {
+        console.log('Error: ', error.message);
+    });
   }
 
   handleError(error) {

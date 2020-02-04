@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { CampService } from '../camp.service';
 import { Camp } from '../shared/models/camp.model';
+import { CampListComponent } from '../camp-list/camp-list.component';
 
 @Component({
   selector: 'app-add-update-camp',
@@ -27,8 +28,13 @@ export class AddUpdateCampComponent implements OnInit {
   }
 
   public addOrUpdateCampingRecord = function(event) {
-    this.campService.add(this.campingInfo);
-    // this.campingInfo.id = 5;
-    // this.campService.remove(this.campingInfo);
+    if (this.campingInfo.id) {
+      this.campService.update(this.campingInfo);
+
+    } else {
+
+      this.campService.add(this.campingInfo);
+    }
+    this.clearCampInfo();
   };
 }
