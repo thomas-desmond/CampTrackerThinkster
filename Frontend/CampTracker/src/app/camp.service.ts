@@ -26,20 +26,20 @@ export class CampService {
     });
   }
 
-  public add(payload) {
+  public add(payload: Camp) {
     this.httpClient.post<Camp[]>(this.baseUrl, payload, {headers: this.headers}).subscribe((responseData) => {
       this.campDataBehaviorSubject.next(this.campDataBehaviorSubject.getValue().concat(responseData)); 
     })
   }
 
-  public remove(payload) {
-    this.httpClient.delete<Camp[]>(this.baseUrl + '/' + payload.id, {headers: this.headers}).subscribe( () => {
-      let newCampList = this.campDataBehaviorSubject.getValue().filter(camp => camp.id !== payload.id);
+  public remove(idToDelete: number) {
+    this.httpClient.delete<Camp[]>(this.baseUrl + '/' + idToDelete, {headers: this.headers}).subscribe( () => {
+      let newCampList = this.campDataBehaviorSubject.getValue().filter(camp => camp.id !== idToDelete);
       this.campDataBehaviorSubject.next(newCampList);
     });
   }
 
-  public update(payload){
+  public update(payload: Camp){
     return this.httpClient.put<Camp>(this.baseUrl + '/' + payload.id, payload, {headers: this.headers}).subscribe(response => {
       let data = this.campDataBehaviorSubject.getValue();
       const index = data.findIndex(camp => camp.id === payload.id);

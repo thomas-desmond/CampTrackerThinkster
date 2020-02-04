@@ -17,4 +17,9 @@ export class CampListComponent implements OnInit {
   ngOnInit() {
   }
 
+  deleteCamp(campIdToDelete: number) {
+    // console.log(event);
+    console.log(campIdToDelete);
+    this.campService.remove(campIdToDelete);
+  }
 }

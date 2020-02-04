@@ -1,5 +1,11 @@
 <p>camp-list works! Here are all the campsites I have been to.</p>
 
-<li *ngFor="let camp of campingData$ | async" >
-    -- name: {{camp.name}} Campsite Number: {{camp.campsiteNumber}} ID: {{camp.id}}
-</li>
+    <div *ngFor="let camp of campingData$ | async">
+        <li  >
+            -- name: {{camp.name}} Campsite Number: {{camp.campsiteNumber}} ID: {{camp.id}} 
+            <button (click)="deleteCamp(camp.id)">X</button>
+        </li>
+        
+    </div>
+
+
